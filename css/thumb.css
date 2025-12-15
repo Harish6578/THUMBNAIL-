@@ -1,68 +1,113 @@
-/* RESET & BASE */
+/* RESET */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* BODY */
 body {
     font-family: "Poppins", sans-serif;
     min-height: 100vh;
-    background: linear-gradient(120deg, #2b2b2b, #5a5a5a);
-    padding-top: 30px;
+    background: radial-gradient(circle at top, #3a3a3a, #0f0f0f);
+    padding-top: 40px;
 }
 
-/* GRID CONTAINER */
+/* HEADER */
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.page-header h1 {
+    font-size: 2.6rem;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.page-header .sub-heading {
+    font-size: 1.1rem;
+    color: #aaa;
+}
+
+/* GRID */
 .container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
-    padding: 20px 8%;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    padding: 0 8%;
 }
 
-/* IMAGE STYLING */
+/* IMAGE CARD */
 .image {
     width: 100%;
-    height: 250px;
-    border-radius: 12px;
+    height: 260px;
     object-fit: cover;
+    border-radius: 16px;
     cursor: pointer;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    border: 2px solid rgba(255,255,255,0.08);
+    position: relative;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: 
+        transform 0.45s cubic-bezier(.2,.7,.2,1),
+        box-shadow 0.45s ease,
+        filter 0.45s ease;
 }
 
-/* HOVER EFFECT (NO ROTATION) */
+/* GLOW BORDER EFFECT */
+.image::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 18px;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255,255,255,0.4),
+        transparent
+    );
+    opacity: 0;
+    transition: opacity 0.45s ease;
+}
+
+/* HOVER EFFECT */
 .image:hover {
-    transform: scale(1.12);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
-    border-color: rgba(255,255,255,0.18);
+    transform: translateY(-14px) scale(1.08);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    filter: brightness(1.15);
+}
+
+.image:hover::after {
+    opacity: 1;
 }
 
 /* FULLSCREEN OVERLAY */
 .grid {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.84);
-    backdrop-filter: blur(6px);
+    background: rgba(0,0,0,0.88);
+    backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
+    transition: all 0.6s ease;
 }
 
-/* LARGE IMAGE IN OVERLAY */
+/* LARGE IMAGE */
 .grid img {
-    max-width: 82%;
-    max-height: 82%;
-    border-radius: 16px;
-    box-shadow: 0 0 28px rgba(255,255,255,0.18);
-    transform: scale(0.9);
-    transition: transform 0.5s ease;
+    max-width: 85%;
+    max-height: 85%;
+    border-radius: 18px;
+    transform: scale(0.75);
+    opacity: 0;
+    box-shadow: 0 0 60px rgba(255,255,255,0.2);
+    transition: all 0.6s ease;
 }
 
+/* OPEN STATE */
 .grid:target {
     opacity: 1;
     visibility: visible;
@@ -70,50 +115,40 @@ body {
 
 .grid:target img {
     transform: scale(1);
+    opacity: 1;
 }
 
 /* CLOSE BUTTON */
 .btn {
     position: absolute;
-    top: 18px;
-    right: 28px;
-    font-size: 52px;
+    top: 22px;
+    right: 32px;
+    font-size: 56px;
     color: #fff;
     text-decoration: none;
     font-weight: 700;
-    transition: transform 0.3s ease, color 0.3s ease;
+    transition: transform 0.35s ease, color 0.35s ease;
 }
 
 .btn:hover {
-    transform: scale(1.25);
-    color: #ff5555;
-}
-.page-header {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 30px;
+    transform: rotate(90deg) scale(1.2);
+    color: #ff4d4d;
 }
 
-.page-header h1 {
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: #222;
-}
-
-.page-header .sub-heading {
-    font-size: 1.1rem;
-    color: #555;
-    margin-top: 5px;
+/* ACCESSIBILITY */
+.image:focus {
+    outline: 3px solid #fff;
+    outline-offset: 4px;
 }
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
     .image {
-        height: 180px;
+        height: 190px;
     }
     .btn {
-        font-size: 40px;
-        top: 14px;
-        right: 18px;
+        font-size: 42px;
+        top: 16px;
+        right: 20px;
     }
 }
