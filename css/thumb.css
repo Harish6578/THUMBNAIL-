@@ -116,7 +116,7 @@ body {
 }
 
 /* close button  */
-/* .btn {
+.btn {
     position: absolute;
     top: 22px;
     right: 32px;
@@ -148,4 +148,4 @@ body {
         top: 16px;
         right: 20px;
     }
-} */
+}
